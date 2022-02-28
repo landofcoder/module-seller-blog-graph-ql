@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Lofmp\BlogGraphQl\Api\BlogRepositoryInterface" type="Lofmp\BlogGraphQl\Model\BlogRepository"/>
+    <preference for="Lofmp\BlogGraphQl\Api\CommentRepositoryInterface" type="Lofmp\BlogGraphQl\Model\CommentRepository"/>
+    <preference for="Lofmp\BlogGraphQl\Api\TagRepositoryInterface" type="Lofmp\BlogGraphQl\Model\TagRepository"/>
+    <preference for="Lofmp\BlogGraphQl\Api\GetPostRepositoryInterface" type="Lofmp\BlogGraphQl\Model\GetPostRepository"/>
+
+    <type name="Magento\Framework\GraphQl\Query\Resolver\Argument\FieldEntityAttributesPool">
+        <arguments>
+            <argument name="attributesInstances" xsi:type="array">
+                <item name="lofmp_blog_post" xsi:type="object">\Lofmp\BlogGraphQl\Model\Resolver\FilterArgumentBlog</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\GraphQl\Query\Resolver\Argument\FieldEntityAttributesPool">
+        <arguments>
+            <argument name="attributesInstances" xsi:type="array">
+                <item name="lofmp_blog_category" xsi:type="object">\Lofmp\BlogGraphQl\Model\Resolver\FilterArgumentCategory</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\GraphQl\Query\Resolver\Argument\FieldEntityAttributesPool">
+        <arguments>
+            <argument name="attributesInstances" xsi:type="array">
+                <item name="lofmp_blog_post_author" xsi:type="object">\Lofmp\BlogGraphQl\Model\Resolver\FilterArgumentAuthor</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\GraphQl\Query\Resolver\Argument\FieldEntityAttributesPool">
+        <arguments>
+            <argument name="attributesInstances" xsi:type="array">
+                <item name="lofmp_blog_post_tag" xsi:type="object">\Lofmp\BlogGraphQl\Model\Resolver\FilterArgumentTag</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\GraphQl\Query\Resolver\Argument\FieldEntityAttributesPool">
+        <arguments>
+            <argument name="attributesInstances" xsi:type="array">
+                <item name="lofmp_blog_comment" xsi:type="object">\Lofmp\BlogGraphQl\Model\Resolver\FilterArgumentComment</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

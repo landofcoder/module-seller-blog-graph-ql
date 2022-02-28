@@ -1,0 +1,26 @@
+{
+    "name": "landofcoder/module-seller-blog-graphql",
+    "description": "Magento 2 Seller Blog GraphQl extension use for Seller Blog extension (commerce version)",
+    "type": "magento2-module",
+    "license": "OSL-3.0",
+    "authors": [
+        {
+            "name": "landofcoder",
+            "email": "info@landofcoder.com",
+            "homepage": "https://landofcoder.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "version": "1.0.1",
+    "require": {
+        "landofcoder/module-seller-blog": "1.0.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lofmp\\BlogGraphQl\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}

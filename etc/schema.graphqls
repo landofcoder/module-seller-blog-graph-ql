@@ -1,0 +1,534 @@
+# Landofcoder
+#
+# NOTICE OF LICENSE
+#
+# This source file is subject to the Landofcoder.com license that is
+# available through the world-wide-web at this URL:
+# https://landofcoder.com/LICENSE.txt
+#
+# DISCLAIMER
+#
+# Do not edit or add to this file if you wish to upgrade this extension to newer
+# version in the future.
+#
+# @category    Landofcoder
+# @package     Lofmp_BlogGraphQl
+# @copyright   Copyright (c) 2022 Landofcoder (https://landofcoder.com/)
+# @license     https://landofcoder.com/LICENSE.txt
+
+type Query {
+
+    getSellerBlogPost (
+        post_id: Int! @doc(description: "Query by id.")
+    ) : SellerBlogPost @resolver( class: "Lof\\BlogGraphQl\\Model\\Resolver\\Blog") @doc(description: "Query by Get blog by id.")
+
+    getSellerBlogArchive : [ArchiveBlog] @resolver( class: "Lof\\BlogGraphQl\\Model\\Resolver\\ArchiveBlogs") @doc(description: "Query ArchiveBlogs.")
+
+    getSellerBlogPosts (
+        search: String @doc(description: "Performs a full-text search using the specified key words.")
+        filter: SellerBlogPostFilterInput @doc(description: "Identifies which blog attributes to search for and return.")
+        sort: SellerBlogSortInput @doc(description: "Identifies which blog attributes to sort.")
+        pageSize: Int = 20 @doc(description: "Specifies the maximum number of results to return at once. This attribute is optional.")
+        currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1.")
+    ) : SellerBlogPosts @resolver(class: "\\Lofmp\\BlogGraphQl\\Model\\Resolver\\Blogs") @doc(description: "The blog posts query searches for blog posts that match the criteria specified in the search and filter attributes")
+
+    getSellerSellerBlogAuthor (
+        author_id: Int! @doc(description: "Query by id.")
+    ) : SellerBlogAuthor @resolver( class: "Lof\\BlogGraphQl\\Model\\Resolver\\Author") @doc(description: "Query by Get Author info by id.")
+
+    getSellerSellerBlogAuthors (
+        search: String @doc(description: "Performs a full-text search using the specified key words."),
+        filter: SellerBlogAuthorFilterInput @doc(description: "Identifies which product attributes to search for and return."),
+        pageSize: Int = 20 @doc(description: "Specifies the maximum number of results to return at once. This attribute is optional."),
+        currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1."),
+    ) : SellerBlogAuthors @resolver(class: "\\Lofmp\\BlogGraphQl\\Model\\Resolver\\Authors") @doc(description: "The author list query searches for authors that match the criteria specified in the search and filter attributes")
+
+    getSellerSellerBlogCategory (
+        category_id: Int! @doc(description: "Query by id.")
+    ) : SellerBlogCategory @resolver( class: "Lof\\BlogGraphQl\\Model\\Resolver\\Category") @doc(description: "Query by Get Category by id.")
+
+    getSellerSellerBlogCategories (
+        search: String @doc(description: "Performs a full-text search using the specified key words."),
+        filter: SellerBlogCategoryFilterInput @doc(description: "Identifies which product attributes to search for and return."),
+        pageSize: Int = 20 @doc(description: "Specifies the maximum number of results to return at once. This attribute is optional."),
+        currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1."),
+    ) : SellerBlogCategories @resolver(class: "\\Lofmp\\BlogGraphQl\\Model\\Resolver\\Categories") @doc(description: "The category list query searches for categories that match the criteria specified in the search and filter attributes")
+
+    getSellerSellerBlogTag (
+        alias: String! @doc(description: "Query by alias.")
+    ) : SellerBlogTag @resolver( class: "Lof\\BlogGraphQl\\Model\\Resolver\\Tag") @doc(description: "Query tag info by tag Alias.")
+
+    getSellerSellerBlogTags (
+        search: String @doc(description: "Performs a full-text search using the specified key words."),
+        filter: SellerBlogTagFilterInput @doc(description: "Identifies which product attributes to search for and return."),
+        pageSize: Int = 20 @doc(description: "Specifies the maximum number of results to return at once. This attribute is optional."),
+        currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1."),
+    ) : SellerBlogTags @resolver(class: "\\Lofmp\\BlogGraphQl\\Model\\Resolver\\Tags") @doc(description: "The tags query searches for tags that match the criteria specified in the search and filter attributes")
+
+    getSellerSellerBlogCommentList (
+        search: String @doc(description: "Performs a full-text search using the specified key words."),
+        filter: SellerBlogCommentFilterInput @doc(description: "Identifies which blog attributes to search for and return."),
+        sort: SellerBlogCommentSortInput @doc(description: "Identifies which blog attributes to sort."),
+        pageSize: Int = 20 @doc(description: "Specifies the maximum number of results to return at once. This attribute is optional."),
+        currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1."),
+    ): SellerSellerBlogComment @resolver(class: "\\Lofmp\\BlogGraphQl\\Model\\Resolver\\Comments") @doc(description: "The comments query searches for blogs that match the criteria specified in the search and filter attributes")
+
+}
+
+type Mutation {
+    submitSellerPostComment(input: SubmitSellerCommentInput!): SellerBlogComment! @doc(description: "Submit blog post comment data, response message_id") @resolver(class: "Lof\\BlogGraphQl\\Model\\Resolver\\SubmitComment")
+}
+
+type SellerBlogPost {
+    post_id  : Int  @doc(description: "Post id.")
+    title  : String  @doc(description: "title.")
+    identifier  : String  @doc(description: "identifier.")
+    content  : String  @doc(description: "content.")
+    short_content  : String  @doc(description: "short_content.")
+    is_active : Int  @doc(description: "is_active.")
+    image  : String  @doc(description: "image.")
+    image_type  : String  @doc(description: "image_type.")
+    image_video_type  : String  @doc(description: "image_video_type.")
+    image_video_id  : String  @doc(description: "image_video_id.")
+    thumbnail  : String  @doc(description: "thumbnail.")
+    thumbnail_type  : String  @doc(description: "thumbnail_type.")
+    thumbnail_video_type  : String  @doc(description: "thumbnail_video_type.")
+    thumbnail_video_id  : String  @doc(description: "thumbnail_video_id.")
+    page_layout  : String  @doc(description: "page_layout.")
+    page_title  : String  @doc(description: "page_title.")
+    meta_keywords  : String  @doc(description: "meta_keywords.")
+    meta_description  : String  @doc(description: "meta_description.")
+    hits  : String  @doc(description: "hits.")
+    creation_time  : String  @doc(description: "creation_time.")
+    update_time  : String  @doc(description: "update_time.")
+    enable_comment  : Int  @doc(description: "enable_comment.")
+    is_private  : Int  @doc(description: "is_private.")
+    like  : Int  @doc(description: "like.")
+    disklike  : Int  @doc(description: "disklike.")
+    og_metadata  : String  @doc(description: "og_metadata.")
+    og_title  : String  @doc(description: "og_title.")
+    og_description  : String  @doc(description: "Og Description.")
+    og_img  : String  @doc(description: "Og Image.")
+    og_type  : String  @doc(description: "Og Type.")
+    real_post_url  : String  @doc(description: "Real Post Url.")
+    real_image_url  : String  @doc(description: "Real Image Url.")
+    real_thumbnail_url  : String  @doc(description: "Real Thumbnail Url.")
+    comment_count: Int @doc(description: "Comment Count")
+    store_ids: [Int] @doc(description: "Store Ids.")
+    category_id: [Int] @doc(description: "Category Ids.")
+    tags: SellerBlogTags  @doc(description: "list post tags.") @resolver(class: "\\Lofmp\\BlogGraphQl\\Model\\Resolver\\Post\\Tags") @doc(description: "Query Post Categories.")
+    categories: SellerBlogCategories @resolver(class: "\\Lofmp\\BlogGraphQl\\Model\\Resolver\\Post\\Categories") @doc(description: "Query Post Categories.")
+    comments (
+        search: String @doc(description: "Performs a full-text search using the specified key words.")
+        filter: SellerBlogCommentFilterInput @doc(description: "Identifies which blog attributes to search for and return."),
+        sort: SellerBlogCommentSortInput @doc(description: "Identifies which blog attributes to sort."),
+        pageSize: Int = 20 @doc(description: "Specifies the maximum number of results to return at once. This attribute is optional."),
+        currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1.")
+    ) : SellerSellerBlogComment @resolver(class: "\\Lofmp\\BlogGraphQl\\Model\\Resolver\\Post\\Comments") @doc(description: "The post comments query searches for blog post comments that match the criteria specified in the search and filter attributes")
+    related_posts: SellerBlogPosts @resolver(class: "\\Lofmp\\BlogGraphQl\\Model\\Resolver\\Post\\RelatedPosts") @doc(description: "Related Posts.")
+    related_products: Products @resolver(class: "\\Lofmp\\BlogGraphQl\\Model\\Resolver\\Post\\RelatedProducts") @doc(description: "Related Products.")
+    author: SellerBlogAuthor @resolver(class: "\\Lofmp\\BlogGraphQl\\Model\\Resolver\\Post\\Author")  @doc (description: "Author.")
+}
+
+type BlogRelatedProducts {
+    post_id: Int @doc(description: "Post Id")
+    entity_id: Int @doc(description: "Product Id")
+    position: Int @doc(description: "Position")
+}
+
+type SellerBlogAuthor {
+    author_id: Int @doc(description: "Author Id")
+    email: String @doc(description: "Email")
+    nick_name: String @doc(description: "Nick Name")
+    description: String @doc(description: "Description")
+    avatar: String @doc(description: "Avatar")
+    page_title: String @doc(description: "Page Title")
+    meta_keywords: String @doc(description: "Meta Keywords")
+    meta_description: String @doc(description: "Meta Description")
+    social_networks: String @doc(description: "Social Networks")
+    is_view: Int @doc(description: "Is View")
+    creation_time: String @doc(description: "Creation Time")
+    update_time: String @doc(description: "Update Time")
+    posts (
+        filter: SellerBlogPostFilterInput @doc(description: "Identifies which blog attributes to search for and return.")
+        sort: SellerBlogSortInput @doc(description: "Identifies which blog attributes to sort.")
+        pageSize: Int = 20 @doc(description: "Specifies the maximum number of results to return at once. This attribute is optional.")
+        currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1.")
+    ) : SellerBlogPosts @resolver(class: "\\Lofmp\\BlogGraphQl\\Model\\Resolver\\Category\\Posts") @doc(description: "The blog posts query searches for blog posts that match the current author")
+}
+
+type SellerBlogCategory {
+    category_id: Int @doc(description: "Category Id")
+    name: String @doc(description: "Name")
+    identifier: String @doc(description: "Identifier")
+    description: String @doc(description: "Description")
+    image: String @doc(description: "Image")
+    layout_type: String @doc(description: "Layout File")
+    orderby: String @doc(description: "Order By")
+    comments: String @doc(description: "Comments")
+    item_per_page: String @doc(description: "Item Per Page")
+    lg_column_item: String @doc(description: "Lg Column Item")
+    md_column_item: String @doc(description: "Md Column Item")
+    sm_column_item: String @doc(description: "Sm Column Item")
+    xs_column_item: String @doc(description: "Xs Column Item")
+    page_layout: String @doc(description: "Page Layout")
+    page_title: String @doc(description: "Page Title")
+    page_layout: String @doc(description: "Page Layout")
+    canonical_url: String @doc(description: "Canonical Url")
+    layout_update_xml: String @doc(description: "Layout Update XML")
+    meta_keywords: String @doc(description: "Meta Keywords")
+    meta_description: String @doc(description: "Meta Description")
+    creation_time: String @doc(description: "Creation Time")
+    update_time: String @doc(description: "Update Time")
+    cat_position: String @doc(description: "Category Position")
+    is_active: String @doc(description: "Is Active")
+    parent_id: String @doc(description: "Parent Id")
+    posts_style: String @doc(description: "Post Style")
+    posts_template: String @doc(description: "Post Template")
+    stores: [Int] @doc(description: "Store Ids")
+    posts (
+        filter: SellerBlogPostFilterInput @doc(description: "Identifies which blog attributes to search for and return.")
+        sort: SellerBlogSortInput @doc(description: "Identifies which blog attributes to sort.")
+        pageSize: Int = 20 @doc(description: "Specifies the maximum number of results to return at once. This attribute is optional.")
+        currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1.")
+    ) : SellerBlogPosts @resolver(class: "\\Lofmp\\BlogGraphQl\\Model\\Resolver\\Category\\Posts") @doc(description: "The blog posts query searches for blog posts that match the current category")
+}
+
+type SellerBlogComment {
+    comment_id: Int @doc(description: "Comment Id")
+    post_id: Int @doc(description: "Post Id")
+    position: Int @doc(description: "Position")
+    content: String @doc(description: "Content")
+    user_name: String @doc(description: "User Name")
+    has_read: Int @doc(description: "Has Been Read")
+    is_active: Int @doc(description: "Is Active")
+    parent_id: Int @doc(description: "Parent Id")
+    creation_time: String @doc(description: "Created At")
+    post_title: String @doc(description: "Post Title")
+    post_identifier: String @doc(description: "Post Identifier")
+}
+
+type SellerBlogTag {
+    name: String @doc(description: "Name")
+    alias: String @doc(description: "Alias")
+    meta_robots: String @doc(description: "User Name")
+    total_posts: Int @doc(description: "Total Posts")
+    posts (
+        filter: SellerBlogPostFilterInput @doc(description: "Identifies which blog attributes to search for and return.")
+        sort: SellerBlogSortInput @doc(description: "Identifies which blog attributes to sort.")
+        pageSize: Int = 20 @doc(description: "Specifies the maximum number of results to return at once. This attribute is optional.")
+        currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1.")
+    ) : SellerBlogPosts @resolver(class: "\\Lofmp\\BlogGraphQl\\Model\\Resolver\\Tag\\Posts") @doc(description: "The blog posts query searches for blog posts that match the current tag")
+}
+
+type ArchiveBlog {
+    time: String @doc(description: "Time")
+    count: Int @doc(description: "Count")
+}
+
+type SellerBlogPosts {
+    total_count: Int @doc(description: "The number of blogs returned")
+    items: [SellerBlogPost] @doc(description: "An array of blogs that match the specified search criteria")
+}
+
+type SellerSellerBlogComment {
+    total_count: Int @doc(description: "The number of comments returned")
+    items: [SellerBlogComment] @doc(description: "An array of comments that match the specified search criteria")
+}
+
+type SellerBlogTags {
+    total_count: Int @doc(description: "The number of tags returned")
+    items: [SellerBlogTag] @doc(description: "An array of tags that match the specified search criteria")
+}
+
+type SellerBlogAuthors {
+    total_count: Int @doc(description: "The number of authors returned")
+    items: [SellerBlogAuthor] @doc(description: "An array of authors that match the specified search criteria")
+}
+
+type SellerBlogCategories {
+    total_count: Int @doc(description: "The number of categories returned")
+    items: [SellerBlogCategory] @doc(description: "An array of categories that match the specified search criteria")
+}
+
+input SellerBlogCommentFilterInput {
+    post_id: FilterTypeInput @doc(description: "Post ID")
+    comment_id: FilterTypeInput @doc(description: "Comment ID")
+    position: FilterTypeInput @doc(description: "Position")
+    user_name: FilterTypeInput @doc(description: "User Name")
+    user_email: FilterTypeInput @doc(description: "Email")
+    has_read: FilterTypeInput @doc(description: "Has Been Read")
+    is_active: FilterTypeInput @doc(description: "Is Active")
+    parent_id: FilterTypeInput @doc(description: "Parent Id")
+    creation_time: FilterTypeInput @doc(description: "Creation Time")
+    or: SellerBlogCommentFilterInput @doc(description: "The keyword required to perform a logical OR comparison")
+}
+
+input SellerBlogPostFilterInput {
+    post_id: FilterTypeInput @doc(description: "Post ID")
+    title: FilterTypeInput @doc(description: "Title")
+    identifier: FilterTypeInput @doc(description: "Identifier")
+    is_active: FilterTypeInput @doc(description: "Is Active")
+    like: FilterTypeInput @doc(description: "Like")
+    disklike: FilterTypeInput @doc(description: "Dislike")
+    creation_time: FilterTypeInput @doc(description: "Created Time")
+    update_time: FilterTypeInput @doc(description: "Updated Time")
+    or: SellerBlogPostFilterInput @doc(description: "The keyword required to perform a logical OR comparison")
+}
+
+input SellerBlogAuthorFilterInput {
+    author_id: FilterTypeInput @doc(description: "Author ID")
+    email: FilterTypeInput @doc(description: "Email")
+    user_name: FilterTypeInput @doc(description: "User Name")
+    nick_name: FilterTypeInput @doc(description: "Nick Name")
+    meta_keywords: FilterTypeInput @doc(description: "Meta Keywords")
+    or: SellerBlogAuthorFilterInput @doc(description: "The keyword required to perform a logical OR comparison")
+}
+
+input SellerBlogCategoryFilterInput {
+    category_id: FilterTypeInput @doc(description: "Category ID")
+    name: FilterTypeInput @doc(description: "Name")
+    identifier: FilterTypeInput @doc(description: "Identifier")
+    layout_type: FilterTypeInput @doc(description: "Layout Type")
+    orderby: FilterTypeInput @doc(description: "Order By")
+    parent_id: FilterTypeInput @doc(description: "Parent Id")
+    cat_position: FilterTypeInput @doc(description: "Category Position")
+    or: SellerBlogCategoryFilterInput @doc(description: "The keyword required to perform a logical OR comparison")
+}
+
+input SellerBlogTagFilterInput {
+    tag_id: FilterTypeInput @doc(description: "Tag ID")
+    post_id: FilterTypeInput @doc(description: "Post Id")
+    name: FilterTypeInput @doc(description: "Name")
+    alias: FilterTypeInput @doc(description: "Alias")
+    meta_robots: FilterTypeInput @doc(description: "Meta Robots")
+    or: SellerBlogTagFilterInput @doc(description: "The keyword required to perform a logical OR comparison")
+}
+
+input SellerBlogSortInput {
+    creation_time: SortEnum @doc(description: "Sort by the search relevance score (default).")
+    hits: SortEnum @doc(description: "Sort by the position assigned to each product.")
+}
+
+input SellerBlogCommentSortInput {
+    creation_time: SortEnum @doc(description: "Sort by the search relevance score (default).")
+    position: SortEnum @doc(description: "Sort by the position assigned to each product.")
+}
+
+input SubmitSellerCommentInput @doc(description: "SubmitSellerCommentInput submit comment for a post") {
+    post_id: Int! @doc(description: "Post Id")
+    parent_id: Int @doc(description: "Parent Id")
+    content: String! @doc(description: "Comment Content")
+    user_name: String! @doc(description: "User Name")
+    user_email: String @doc(description: "User Email")
+}
+
+type StoreConfig {
+    SellerBlog : SellerBlogConfiguration @resolver(class: "\\Lofmp\\BlogGraphQl\\Model\\Resolver\\BlogConfiguration") @doc(description: "Blog configuration.")
+}
+
+type SellerBlogConfiguration {
+    general_settings_enable_rss : String
+    general_settings_enable : String
+    general_settings_url_prefix : String
+    general_settings_url_suffix : String
+    general_settings_categories_urls : String
+    general_settings_dateformat : String
+    general_settings_twitter_username : String
+    general_settings_menu_title : String
+    general_settings_disable_comment : String
+    general_settings_rssposts_show : String
+    general_settings_latestpagerss : String
+    general_settings_categoryrss : String
+    general_settings_archiverss : String
+    general_settings_tagrss : String
+    general_settings_authorrss : String
+    general_settings_commentrss : String
+    general_settings_enable_networks : String
+    general_settings_networks : String
+    general_settings_addthis_pubid : String
+    blog_latest_page_exclued_categories : String
+    blog_latest_page_page_title : String
+    blog_latest_page_meta_description : String
+    blog_latest_page_meta_keywords : String
+    blog_latest_page_posts_styles : String
+    blog_latest_page_maincontainer_selector : String
+    category_page_show_breadcrumbs : String
+    category_page_show_toolbartop : String
+    category_page_show_toolbarbottom : String
+    category_page_show_image : String
+    category_page_image_width : String
+    category_page_image_height : String
+    category_page_show_title : String
+    category_page_show_shortdescription : String
+    category_page_shortdescription_count : String
+    category_page_show_readmorelink : String
+    category_page_show_categories : String
+    category_page_show_author : String
+    category_page_show_commentcount : String
+    category_page_show_updatedtime : String
+    category_page_show_createdtime : String
+    category_page_show_hits : String
+    category_page_show_tags : String
+    post_page_show_likedisklike : String
+    post_page_show_image : String
+    post_page_image_width : String
+    post_page_image_height : String
+    post_page_show_title : String
+    post_page_show_description : String
+    post_page_show_categories : String
+    post_page_show_author : String
+    post_page_show_commentcount : String
+    post_page_show_updatedtime : String
+    post_page_show_createdtime : String
+    post_page_show_socialblock : String
+    post_page_show_hits : String
+    post_page_show_tags : String
+    post_page_show_socialnetwork : String
+    post_page_enable_commentblock : String
+    post_page_allowable_tags : String
+    post_page_comment_type : String
+    post_page_auto_public : String
+    post_page_numbercomment_perpage : String
+    post_page_limit_chars : String
+    post_page_enable_comment_reply : String
+    post_page_show_captcha : String
+    post_page_captcha_publickey : String
+    post_page_captcha_privatekey : String
+    post_page_enable_send_email : String
+    post_page_recipient_email : String
+    post_page_sender_email_identity : String
+    post_page_email_template : String
+    post_page_enable_nextprev : String
+    post_page_enable_related : String
+    post_page_related_carousel_layout : String
+    post_page_mobile_items : String
+    post_page_tablet_small_items : String
+    post_page_tablet_items : String
+    post_page_portrait_items : String
+    post_page_default_items : String
+    post_page_large_items : String
+    post_page_autoplay : String
+    post_page_autoplay_timeout : String
+    post_page_dots : String
+    post_page_nav : String
+    post_page_nav_prev : String
+    post_page_nav_next : String
+    post_page_enable_related_products : String
+    post_page_related_products_carousel_layout : String
+    post_page_mobile_items_products : String
+    post_page_tablet_small_items_products : String
+    post_page_tablet_items_products : String
+    post_page_portrait_items_products : String
+    post_page_default_items_products : String
+    post_page_large_items_products : String
+    post_page_autoplay_products : String
+    post_page_autoplay_timeout_products : String
+    post_page_dots_products : String
+    post_page_nav_products : String
+    post_page_nav_prev_products : String
+    post_page_nav_next_products : String
+    product_page_enable_related_posts : String
+    product_page_show_image : String
+    product_page_image_width : String
+    product_page_image_height : String
+    product_page_show_title : String
+    product_page_show_shortdescription : String
+    product_page_show_categories : String
+    product_page_show_author : String
+    product_page_show_commentcount : String
+    product_page_show_updatedtime : String
+    product_page_show_createdtime : String
+    product_page_show_hits : String
+    product_page_show_tags : String
+    product_page_show_socialnetwork : String
+    product_page_item_height : String
+    product_page_number_item_percolumn : String
+    product_page_large_max_items : String
+    product_page_large_items : String
+    product_page_portrait_items : String
+    product_page_tablet_items : String
+    product_page_tablet_small_items : String
+    product_page_mobile_items : String
+    product_page_autoplay_hoverpause : String
+    product_page_autoplay : String
+    product_page_loop : String
+    product_page_dots : String
+    product_page_nav : String
+    product_page_nav_prev : String
+    product_page_nav_next : String
+    sidebar_show_searchform : String
+    sidebar_searchform_title : String
+    sidebar_show_recentpostsblock : String
+    sidebar_recentpostsblock_title : String
+    sidebar_posts_per_page : String
+    sidebar_show_categoriesblock : String
+    sidebar_show_recentcommentsblock : String
+    sidebar_recentcommentsblock_title : String
+    sidebar_comments_per_page : String
+    sidebar_show_archiveblock : String
+    sidebar_archiveblock_title : String
+    sidebar_show_tagblock : String
+    sidebar_tagblock_title : String
+    sidebar_show_tagcountdown : String
+    sidebar_tag_cloud : String
+    sidebar_tags_per_page : String
+    blog_page_layout_type : String
+    blog_page_posts_styles : String
+    blog_page_page_layout : String
+    blog_page_orderby : String
+    blog_page_show_breadcrumbs : String
+    blog_page_item_per_page : String
+    blog_page_show_toolbartop : String
+    blog_page_show_toolbarbottom : String
+    blog_page_lg_column_item : String
+    blog_page_md_column_item : String
+    blog_page_sm_column_item : String
+    blog_page_xs_column_item : String
+    blog_page_show_image : String
+    blog_page_image_width : String
+    blog_page_image_height : String
+    blog_page_keep_ratio : String
+    blog_page_keep_frame : String
+    blog_page_show_title : String
+    blog_page_show_shortdescription : String
+    blog_page_shortdescription_count : String
+    blog_page_show_readmorelink : String
+    blog_page_show_categories : String
+    blog_page_show_author : String
+    blog_page_show_commentcount : String
+    blog_page_show_updatedtime : String
+    blog_page_show_createdtime : String
+    blog_page_show_hits : String
+    blog_page_show_tags : String
+    blog_page_show_socialnetworks : String
+    ajaxscroll_selectors_enable_ajaxscroll : String
+    ajaxscroll_selectors_enable_latest : String
+    ajaxscroll_selectors_enable_category : String
+    ajaxscroll_selectors_enable_search : String
+    ajaxscroll_selectors_enable_archive : String
+    ajaxscroll_selectors_enable_tag : String
+    ajaxscroll_selectors_enable_author : String
+    ajaxscroll_selectors_enable_comment : String
+    ajaxscroll_selectors_content : String
+    ajaxscroll_selectors_pagination : String
+    ajaxscroll_selectors_toolbar : String
+    ajaxscroll_selectors_next : String
+    ajaxscroll_selectors_grid_mode : String
+    ajaxscroll_selectors_loading_image : String
+    ajaxscroll_selectors_loading_text : String
+    ajaxscroll_selectors_done_text : String
+    ajaxscroll_selectors_hide_toolbar : String
+    ajaxscroll_selectors_local_mode : String
+    ajaxscroll_selectors_buffer : String
+    ajaxscroll_selectors_load_more : String
+    ajaxscroll_selectors_load_more_text : String
+    other_settings_enable_authors_list : String
+    other_settings_authors_url : String
+    other_settings_show_posts_count : String
+    other_settings_show_author_info : String
+    other_settings_use_custom_post_link : String
+    other_settings_link_follow : String
+    other_settings_use_custom_post_img : String
+    importer_settings_enable_cron : String
+}
